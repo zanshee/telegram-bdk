@@ -1,0 +1,3 @@
+zanshee_telegram_bdk_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: ZansheeTelegramBDKBundle:Default:index }
