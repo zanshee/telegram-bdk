@@ -8,19 +8,22 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
 /**
- * This is the class that loads and manages your bundle configuration
+ * Class ZansheeTelegramBDKExtension
  *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
+ * @package Zanshee\TelegramBDKBundle\DependencyInjection
  */
 class ZansheeTelegramBDKExtension extends Extension
 {
     /**
-     * {@inheritdoc}
+     * @param array            $configs
+     * @param ContainerBuilder $container
      */
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('telegram_bdk.api_list', $config);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

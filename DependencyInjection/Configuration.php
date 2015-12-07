@@ -6,23 +6,24 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * This is the class that validates and merges configuration from your app/config files
+ * Class Configuration
  *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
+ * @package Zanshee\TelegramBDKBundle\DependencyInjection
  */
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritdoc}
+     * @return TreeBuilder
      */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('zanshee_telegram_bdk');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode->useAttributeAsKey('name')->prototype('array')->children()
+            ->scalarNode('api_key')->isRequired()->cannotBeEmpty()->info('api key for bot')->end()
+            ->booleanNode('webhook')->defaultFalse()->info('use webhook (default: false)')->end()
+            ->end();
 
         return $treeBuilder;
     }

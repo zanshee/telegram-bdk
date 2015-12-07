@@ -1,4 +1,4 @@
 services:
-#    zanshee_telegram_bdk.example:
-#        class: Zanshee\TelegramBDKBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    telegram_bdk:
+        class: Zanshee\TelegramBDKBundle\BotResolver
+        arguments: [%telegram_bdk.api_list%]
