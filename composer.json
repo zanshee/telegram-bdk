@@ -1,20 +1,27 @@
 {
-  "name" : "zanshee/telegram-bdk",
-  "description" : "Symfony2 TelegramBot API",
-  "version" : "0.9.4",
-  "type" : "symfony-bundle",
+  "name": "zanshee/telegram-bdk",
+  "description": "Symfony2 TelegramBot API",
+  "version": "0.9.4",
+  "type": "symfony-bundle",
   "homepage": "https://github.com/zanshe/TelegramBDK",
-  "license" : "MIT",
-  "keywords" : ["telegram", "telegram bot"],
-  "authors" : [{
-    "name" : "Victor Zanshee",
-    "email" : "info@zanshee.kiev.ua"
-  }],
-  "require" : {
+  "license": "MIT",
+  "keywords": [
+    "telegram",
+    "telegram bot"
+  ],
+  "authors": [
+    {
+      "name": "Victor Zanshee",
+      "email": "info@zanshee.kiev.ua"
+    }
+  ],
+  "require": {
     "php": ">=5.3.10",
     "symfony/symfony": ">=2.1"
   },
-  "autoload" : {
-    "psr-4" : { "Zanshee\\TelegramBDKBundle\\" : "" }
+  "autoload": {
+    "psr-4": {
+      "Zanshee\\TelegramBDKBundle\\": ""
+    }
   }
 }

@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('zanshee_telegram_bdk');
+        $rootNode = $treeBuilder->root('telegram_bdk');
 
         $rootNode->useAttributeAsKey('name')->prototype('array')->children()
             ->scalarNode('api_key')->isRequired()->cannotBeEmpty()->info('api key for bot')->end()
