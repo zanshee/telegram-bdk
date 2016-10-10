@@ -1,13 +1,16 @@
 <?php
 
-namespace Zanshee\TelegramBDKBundle;
+namespace Zanshee\TelegramBDKBundle\Services;
+
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Zanshee\TelegramBDKBundle\TelegramBot;
 
 /**
  * Class BotResolver
  *
  * @package Zanshee\TelegramBDKBundle
  */
-class BotResolver extends TelegramAPI
+class BotResolver
 {
     /**
      * List of Bot's names and API key's
@@ -29,16 +32,15 @@ class BotResolver extends TelegramAPI
     /**
      * @param $bot
      *
-     * @return bool
+     * @return TelegramBot
      */
     public function take($bot)
     {
         if (in_array($bot, array_keys($this->api_list))) {
-            $this->current_bot = $this->api_list[$bot]["api_key"];
-            return true;
-        } else {
-            return false;
+            return new TelegramBot($this->api_list[$bot]['api_key']);
         }
+
+        throw new Exception("Bot " . $bot . " not found");
     }
 
 }

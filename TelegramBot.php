@@ -4,11 +4,21 @@ namespace Zanshee\TelegramBDKBundle;
 
 use CURLFile;
 
-class TelegramAPI
+class TelegramBot
 {
     const BASE_URL = 'https://api.telegram.org/bot';
 
-    protected $current_bot;
+    private $api_key;
+
+    /**
+     * TelegramBot constructor.
+     *
+     * @param $api_key
+     */
+    public function __construct($api_key)
+    {
+        $this->api_key = $api_key;
+    }
 
     /**
      * A simple method for testing your bot's auth token.
@@ -356,7 +366,7 @@ class TelegramAPI
 
     private function sendRequest($method, $params)
     {
-        return json_decode(file_get_contents($this::BASE_URL . $this->current_bot . DIRECTORY_SEPARATOR . $method . '?' . http_build_query($params)), true);
+        return json_decode(file_get_contents($this::BASE_URL . $this->api_key . DIRECTORY_SEPARATOR . $method . '?' . http_build_query($params)), true);
     }
 
     private function uploadFile($method, $data)
@@ -407,7 +417,7 @@ class TelegramAPI
         }
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this::BASE_URL . $this->current_bot . DIRECTORY_SEPARATOR . $method);
+        curl_setopt($ch, CURLOPT_URL, $this::BASE_URL . $this->api_key . DIRECTORY_SEPARATOR . $method);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
