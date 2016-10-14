@@ -21,6 +21,38 @@ class TelegramBot
     }
 
     /**
+     * Hide the current custom keyboard and display the default letter-keyboard.
+     *
+     * @link https://core.telegram.org/bots/api#replykeyboardhide
+     *
+     * @param bool $selective
+     *
+     * @return string
+     */
+    public static function replyKeyboardHide($selective = false)
+    {
+        $hide_keyboard = true;
+
+        return json_encode(compact('hide_keyboard', 'selective'));
+    }
+
+    /**
+     * Display a reply interface to the user (act as if the user has selected the bots message and tapped 'Reply').
+     *
+     * @link https://core.telegram.org/bots/api#forcereply
+     *
+     * @param bool $selective
+     *
+     * @return string
+     */
+    public static function forceReply($selective = false)
+    {
+        $force_reply = true;
+
+        return json_encode(compact('force_reply', 'selective'));
+    }
+
+    /**
      * A simple method for testing your bot's auth token.
      * Returns basic information about the bot in form of a User object.
      *
@@ -57,15 +89,17 @@ class TelegramBot
      *
      * @param int    $chat_id
      * @param string $text
+     * @param string $parse_mode Send 'Markdown' or 'HTML'
      * @param bool   $disable_web_page_preview
+     * @param bool   $disable_notification
      * @param int    $reply_to_message_id
      * @param string $reply_markup
      *
      * @return array
      */
-    public function sendMessage($chat_id, $text, $disable_web_page_preview = false, $reply_to_message_id = null, $reply_markup = null)
+    public function sendMessage($chat_id, $text, $parse_mode = "", $disable_web_page_preview = false, $disable_notification = false, $reply_to_message_id = null, $reply_markup = null)
     {
-        $params = compact('chat_id', 'text', 'disable_web_page_preview', 'reply_to_message_id', 'reply_markup');
+        $params = compact('chat_id', 'text', 'parse_mode', 'disable_web_page_preview', 'disable_notification', 'reply_to_message_id', 'reply_markup');
 
         return $this->sendRequest('sendMessage', $params);
     }
@@ -245,9 +279,9 @@ class TelegramBot
 //            'find_location',
 //        );
 //        if (isset($action) && in_array($action, $actions)) {
-            $params = compact('chat_id', 'action');
+        $params = compact('chat_id', 'action');
 
-            return $this->sendRequest('sendChatAction', $params);
+        return $this->sendRequest('sendChatAction', $params);
 //        }
 
 //        throw new TelegramException('Invalid Action! Accepted value: ' . implode(', ', $actions));
@@ -330,38 +364,6 @@ class TelegramBot
     public function replyKeyboardMarkup($keyboard, $resize_keyboard = false, $one_time_keyboard = false, $selective = false)
     {
         return json_encode(compact('keyboard', 'resize_keyboard', 'one_time_keyboard', 'selective'));
-    }
-
-    /**
-     * Hide the current custom keyboard and display the default letter-keyboard.
-     *
-     * @link https://core.telegram.org/bots/api#replykeyboardhide
-     *
-     * @param bool $selective
-     *
-     * @return string
-     */
-    public static function replyKeyboardHide($selective = false)
-    {
-        $hide_keyboard = true;
-
-        return json_encode(compact('hide_keyboard', 'selective'));
-    }
-
-    /**
-     * Display a reply interface to the user (act as if the user has selected the bots message and tapped 'Reply').
-     *
-     * @link https://core.telegram.org/bots/api#forcereply
-     *
-     * @param bool $selective
-     *
-     * @return string
-     */
-    public static function forceReply($selective = false)
-    {
-        $force_reply = true;
-
-        return json_encode(compact('force_reply', 'selective'));
     }
 
     private function sendRequest($method, $params)
